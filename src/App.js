@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
-import UserInput from './UserInput/UserInput'
-import UserOutput from './UserOutput/UserOutput'
 
 class App extends Component {
 
@@ -12,7 +10,8 @@ class App extends Component {
       { name: "Akshay", age: 19 },
       { name: "Aishwarya", age: 22 }
     ],
-    otherState: 'Some other value'
+    otherState: 'Some other value',
+    showPersons: false
   }
 
   switchNameHandler = (newName) => {
@@ -37,9 +36,14 @@ class App extends Component {
     });
   }
 
+  togglePersonHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
+  }
+
   render() {
     const style = {
-      backgroundColor:'white', 
+      backgroundColor: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -51,17 +55,21 @@ class App extends Component {
         <h1>Hi, I am a react App</h1>
         <p>This is really working!</p>
         <button
-         style = {style}
-         onClick={() => this.switchNameHandler('Akshay Agarwal')}>Switch Names</button>
-        <Person
-         name={this.state.person[0].name} 
-         age={this.state.person[0].age}
-         change={this.nameChangeHandler} />
-        <Person
-         name={this.state.person[1].name}
-         age={this.state.person[1].age}
-         click={this.switchNameHandler.bind(this, 'Aks!!')}
-         change={this.nameChangeHandler} >Hobbies : Corona</Person> 
+          style={style}
+          onClick={this.togglePersonHandler}>Switch Names</button>
+        {
+          this.state.showPersons ?
+            <div>
+              <Person
+                name={this.state.person[0].name}
+                age={this.state.person[0].age} />
+              <Person
+                name={this.state.person[1].name}
+                age={this.state.person[1].age}
+                click={this.switchNameHandler.bind(this, 'Aks!!')}
+                change={this.nameChangeHandler} >Hobbies : Corona</Person>
+            </div> : null
+        }
       </div>
     );
     // above statement can also be written as below
