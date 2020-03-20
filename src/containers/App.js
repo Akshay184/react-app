@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Persons from '../components/Persons/Perons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
@@ -12,7 +12,7 @@ class App extends Component {
       { id: 'djfdf2', name: "Aishwarya", age: 22 }
     ],
     otherState: 'Some other value',
-    showPersons: true
+    showPersons: false
   }
 
   nameChangeHandler = (event, id) => {
@@ -61,7 +61,7 @@ class App extends Component {
 
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <Cockpit
           showPersons={this.state.showPersons}
           persons={this.state.person}
