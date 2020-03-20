@@ -5,14 +5,28 @@ import Cockpit from '../components/Cockpit/Cockpit';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+  }
 
   state = {
     person: [
       { id: 'djfdf1', name: "Akshay", age: 19 },
-      { id: 'djfdf2', name: "Aishwarya", age: 22 }
+      { id: 'djfdf2', name: "Aishwarya", age: 22 },
+      { id: 'dfjsh', name: "Akshat", age: 22 }
     ],
     otherState: 'Some other value',
     showPersons: false
+  }
+
+  static getDerivedStateFromProps(props, state){
+    console.log('[App.js] getDerivedFromProps', props);
+    return state;
+  }
+
+  componentDidMount(){
+    console.log('[App.js] component did Mount');
   }
 
   nameChangeHandler = (event, id) => {
@@ -45,6 +59,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render'); 
     let persons = null;
     if (this.state.showPersons) {
       persons = (
@@ -58,11 +73,10 @@ class App extends Component {
       );
     }
 
-
-
     return (
       <div className={classes.App}>
         <Cockpit
+          title={this.props.appTitle}
           showPersons={this.state.showPersons}
           persons={this.state.person}
           clicked={this.togglePersonHandler} />
