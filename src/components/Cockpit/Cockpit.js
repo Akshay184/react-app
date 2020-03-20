@@ -6,7 +6,9 @@ const cockpit = (props) => {
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         // We can sent http request from here...
-    })
+    }, [props.persons]);
+    // will render when props.person changes
+    // for one time only pass [] it will never change
 
     const assignedClasses = [];
     let btnClass = '';
