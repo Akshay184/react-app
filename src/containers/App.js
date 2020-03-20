@@ -19,15 +19,16 @@ class App extends Component {
       { id: 'dfjsh', name: "Akshat", age: 22 }
     ],
     otherState: 'Some other value',
-    showPersons: false
+    showPersons: false,
+    changeCounter: 0
   }
 
-  static getDerivedStateFromProps(props, state){
+  static getDerivedStateFromProps(props, state) {
     console.log('[App.js] getDerivedFromProps', props);
     return state;
   }
 
-  componentDidMount(){
+  componentDidMount() {
     console.log('[App.js] component did Mount');
   }
 
@@ -45,7 +46,13 @@ class App extends Component {
     const persons = [...this.state.person];
     persons[personIndex] = person;
 
-    this.setState({ person: persons });
+    this.setState((prevState, props) => {
+      return {
+        person: persons,
+        changeCounter: prevState.changeCounter + 1
+      };
+    });
+
   }
 
   deletePersonHandler = (personIndex) => {
@@ -61,7 +68,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('[App.js] render'); 
+    console.log('[App.js] render');
     let persons = null;
     if (this.state.showPersons) {
       persons = (
